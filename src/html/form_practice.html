@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>註冊頁面(表單驗證練習)</title>
+  <link href="../css/register.css" rel="stylesheet">
+</head>
+
+<body>
+<div class="form-div">
+  <div class="reg-content">
+    <h1>歡迎註冊</h1>
+    <span>已有帳號？</span> <a href="#">登入</a>
+  </div>
+  <form id="reg-form" action="#" method="get">
+    <table>
+      <tr>
+        <td>帳戶名稱</td>
+        <td class="inputs">
+          <input name="username" type="text" id="username">
+          <br>
+          <span id="username_err" class="err_msg" style="display: none">帳戶名稱格式不正確</span>
+        </td>
+      </tr>
+
+      <tr>
+        <td>密碼</td>
+        <td class="inputs">
+          <input name="password" type="password" id="password">
+          <br>
+          <span id="password_err" class="err_msg" style="display: none">密碼格式不正確</span>
+        </td>
+      </tr>
+
+      <tr>
+        <td>手機號碼</td>
+        <td class="inputs"><input name="tel" type="text" id="tel">
+          <br>
+          <span id="tel_err" class="err_msg" style="display: none">手機號碼格式不正確</span>
+        </td>
+      </tr>
+    </table>
+    <div class="buttons">
+      <input value="確認註冊" type="submit" id="reg_btn">
+    </div>
+    <br class="clear">
+  </form>
+
+</div>
+
+
+<script>
+  //檢查username
+  var usernameInput=document.getElementById("username");
+  usernameInput.onblur=checkUsername;
+
+  function checkUsername(){
+    var username=usernameInput.value.trim();
+    var reg=/^\w{6,12}$/;
+    var flag=reg.test(username);
+
+    if(flag){
+      document.getElementById("username_err").style.display="none";
+    }else {
+      document.getElementById("username_err").style.display="";
+    }
+    return flag;
+  }
+
+  //檢查password
+  var passwordInput=document.getElementById("password");
+  passwordInput.onblur=checkPassword;
+
+  function checkPassword(){
+    var password=passwordInput.value;
+    var reg=/^[\S\s]{6,12}$/;
+    var flag=reg.test(password);
+    if(flag){
+      document.getElementById("password_err").style.display="none";
+    }else {
+      document.getElementById("password_err").style.display="";
+    }
+    return flag;
+  }
+
+  //檢查手機號碼
+  var telInput=document.getElementById("tel");
+  telInput.onblur=checkTel;
+
+  function checkTel(){
+    var tel=telInput.value.trim();
+    var reg=/^[0][9]\d{8}$/;
+    var flag=reg.test(tel);
+    if(flag){
+      document.getElementById("tel_err").style.display="none";
+    }else {
+      document.getElementById("tel_err").style.display="";
+    }
+    return flag;
+  }
+
+  //提交表單
+  var regFrom=document.getElementById("reg-form");
+  regFrom.onsubmit=submitForm;
+  function submitForm(){
+    var flag=!!(checkUsername() * checkPassword() * checkTel());
+    return flag;
+  }
+</script>
+
+</body>
+</html>
